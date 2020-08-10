@@ -5,46 +5,67 @@
 
 const UserList = [
   {
-    id: "YTU_1",
-    name: "John",
-    items: ["charger", "phone"],
-    address: "#123, Aman street",
-    pincode: "560030"
+    "id": "123-s2-546",
+    "name": "John Jacobs",
+    "items": ["bucket", "bottle"],
+    "address": "1st Cross, 9th Main, abc Apartment",
+    "pincode": "5xx012"
   },
   {
-    id: "YTU_2",
-    name: "Aman",
-    items: ["laptop", "phone"],
-    address: "#132, Mary street",
-    pincode: "560031"
+    "id": "123-s3-146",
+    "name": "David Mire",
+    "items": ["Bedroom Set"],
+    "address": "2nd Cross, BTI Apartment",
+    "pincode": "4xx012"
   },
   {
-    id: "YTU_3",
-    name: "Mary",
-    items: ["laptop", "charger"],
-    address: "#213, Aman street",
-    pincode: "560032"
+    "id": "223-a1-234",
+    "name": "Soloman Marshall",
+    "items": ["bottle"],
+    "address": "Riverbed Apartment",
+    "pincode": "4xx032"
   },
   {
-    id: "YTU_34",
-    name: "Amar",
-    items: ["charger", "camera"],
-    address: "#321, Rose street",
-    pincode: "560033"
+    "id": "121-s2-111",
+    "name": "Ricky Beno",
+    "items": ["Mobile Set"],
+    "address": "Sunshine City",
+    "pincode": "5xx072"
   },
   {
-    id: "YTU_21",
-    name: "Rose",
-    items: ["camera", "phone"],
-    address: "#312, Johnny street",
-    pincode: "560034"
+    "id": "123-p2-246",
+    "name": "Sikander Singh",
+    "items": ["Air Conditioner"],
+    "address": "Riverbed Apartment",
+    "pincode": "4xx032"
   },
   {
-    id: "YTU_41",
-    name: "Phone",
-    items: ["laptop", "camera"],
-    address: "#231, Mary street",
-    pincode: "560035"
+    "id": "b23-s2-321",
+    "name": "Ross Wheeler",
+    "items": ["Mobile"],
+    "address": "1st Cross, 9th Main, abc Apartement",
+    "pincode": "5xx012"
+  },
+  {
+    "id": "113-n2-563",
+    "name": "Ben Bish",
+    "items": ["Kitchen Set", "Chair"],
+    "address": "Sunshine City",
+    "pincode": "5xx072"
+  },
+  {
+    "id": "323-s2-112",
+    "name": "John Michael",
+    "items": ["Refrigerator"],
+    "address": "1st Cross, 9th Main, abc Apartement",
+    "pincode": "5xx012"
+  },
+  {
+    "id": "abc-34-122",
+    "name": "Jason Jordan",
+    "items": ["Mobile"],
+    "address": "Riverbed Apartment",
+    "pincode": "4xx032"
   }
 ];
 

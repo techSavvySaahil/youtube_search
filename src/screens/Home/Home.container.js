@@ -10,7 +10,7 @@ import React, {
 } from "react";
 
 import {
-  // UserList,
+  UserList,
   KeysToBeChecked
 } from "./_mocks";
 
@@ -19,7 +19,7 @@ import {fetchUserData} from "./api";
 import Home from "./Home";
 
 const HomeContainer = () => {
-  const [userList, setUserList] = useState([]);
+  const [userList, setUserList] = useState(UserList);
   const [filteredList, setFilteredList] = useState([]);
   const [storedTimeout, setStoredTimeout] = useState(null);
   const [memoizedList, setMemoizedList] = useState({});
@@ -71,10 +71,11 @@ const HomeContainer = () => {
   };
 
   useEffect (() => {
-    fetchMockData();
+    // fetchMockData();
     document.addEventListener("keyup", updateIndex);
   }, []);
 
+  // Couldn't make a request due to https
   const fetchMockData = async () => {
     const response = await fetchUserData();
     const responseJson = await response.json();
@@ -147,7 +148,7 @@ const HomeContainer = () => {
         });
         setResultListVisibility(true);
         setActiveIndexRef(1);
-      }, 1000);
+      }, 800);
       setStoredTimeout(timeout);
     }
   };
