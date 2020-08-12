@@ -19,22 +19,22 @@ const propTypes = {
 const Home = ({
   activeIndex,
   checkMouseIndex,
+  checkMouseOver,
   filteredList,
   filterList,
-  isInputFocussed,
   isResultListVisible,
-  setFocusOnInput
+  setResultsVisibility
 }) => {
   return (
     <Wrapper>
       <SearchBar
         placeholder="Search for users and their details"
-        onBlur={() => setFocusOnInput(false)}
+        onBlur={() => setResultsVisibility(false)}
         onChange={filterList}
-        onFocus={() => setFocusOnInput(true)}
+        onFocus={() => setResultsVisibility(true)}
       />
       {
-        isInputFocussed && isResultListVisible && 
+        isResultListVisible &&
         (
           <List id="userlist">
             {filteredList.map((elem, index) => {
@@ -44,6 +44,7 @@ const Home = ({
                   isActive={(index + 1) === activeIndex}
                   key={index + 1}
                   onMouseMove={() => checkMouseIndex(index + 1)}
+                  onMouseOver={() => checkMouseOver(index + 1)}
                 >
                   {parse(elem)}
                 </Item>

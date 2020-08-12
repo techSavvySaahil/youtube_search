@@ -24,8 +24,13 @@ const HomeContainer = () => {
   const [storedTimeout, setStoredTimeout] = useState(null);
   const [memoizedList, setMemoizedList] = useState({});
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isResultListVisible, setResultListVisibility] = useState(false);
-  const [isInputFocussed, setFocusOnInput] = useState(false);
+  const [isResultListVisible, showResultList] = useState(false);
+  const [listScrollTop, setListScrollTop] = useState(0);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  // cascading effect of changing index by keyboard goes to mouseover,
+  // so to stop cascading, isCascadingEffectPresent flag introduced
+  const [isCascadingEffectPresent, setCascadingEffect] = useState(false);
 
   // useRef hook used for getting current state in event listener callback
   const activeIndexRef = useRef(activeIndex);
@@ -35,6 +40,7 @@ const HomeContainer = () => {
   };
 
   const filteredListRef = useRef(filteredList);
+
   const setFilteredListRef = (data) => {
     filteredListRef.current = data;
     setFilteredList(data)
@@ -43,13 +49,13 @@ const HomeContainer = () => {
   // for updating index with keyboard navigation
   const updateIndex = (e) => {
     if ([38, 40].includes(e.keyCode)) {
+      setCascadingEffect(true);
       const list = document.querySelector("#userlist");
       let increment = 0;
       let newIndex = activeIndex;
       if (e.keyCode === 40) {
         increment = activeIndexRef.current >= filteredListRef.current.length ? 0 : 1;
         newIndex = increment + activeIndexRef.current;
-        debugger;
         const item = document.querySelector(`#index_${newIndex}`);
         const scrollDiffFromTop = (newIndex * item.offsetHeight) - list.offsetHeight;
         const scrollDiff = scrollDiffFromTop - list.scrollTop;
@@ -67,6 +73,9 @@ const HomeContainer = () => {
         }
       }
       setActiveIndexRef(newIndex);
+      setTimeout(() => {
+        setCascadingEffect(false);
+      }, 150);
     }
   };
 
@@ -116,15 +125,17 @@ const HomeContainer = () => {
 
     const {value: query} = e.target;
 
+    setSearchQuery(query);
+
     if (!query) {
-      setResultListVisibility(false);
+      setResultsVisibility(false);
       return;
     }
     
     // checking for memoized list of results with unique query
     if (memoizedList[query]) {
       setFilteredListRef(memoizedList[query]);
-      setResultListVisibility(true);
+      setResultsVisibility(true);
       setActiveIndexRef(1);
     } else {
       const filteredUserList = [];
@@ -146,7 +157,7 @@ const HomeContainer = () => {
             [query]: filteredUserList
           }
         });
-        setResultListVisibility(true);
+        setResultsVisibility(true);
         setActiveIndexRef(1);
       }, 800);
       setStoredTimeout(timeout);
@@ -157,15 +168,40 @@ const HomeContainer = () => {
     setActiveIndexRef(parseInt(index));
   };
 
+  const checkMouseOver = (index) => {
+    if (!isCascadingEffectPresent) {
+      setActiveIndexRef(parseInt(index));
+    }
+  };
+
+  const setResultsVisibility = (flag) => {
+    if (!searchQuery) {
+      showResultList(false);
+      return;
+    }
+    if (!flag) {
+      const listElem = document.querySelector("#userlist");
+      // storing the last scroll state
+      listElem && setListScrollTop(listElem.scrollTop);
+      showResultList(flag);
+    } else {
+      showResultList(flag);
+      setTimeout(() => {
+        const listElem = document.querySelector("#userlist");
+        listElem && listElem.scrollTo(0, listScrollTop)
+      }, 0);
+    }
+  };
+
   return (
     <Home
       activeIndex={activeIndex}
       checkMouseIndex={checkMouseIndex}
+      checkMouseOver={checkMouseOver}
       filteredList={filteredList}
       filterList={filterList}
-      isInputFocussed={isInputFocussed}
       isResultListVisible={isResultListVisible}
-      setFocusOnInput={setFocusOnInput}
+      setResultsVisibility={setResultsVisibility}
     />
   )
 };
