@@ -164,13 +164,31 @@ const HomeContainer = () => {
     }
   };
 
+  const scrollMousedCard = (index) => {
+    const list = document.querySelector("#userlist");
+    const item = document.querySelector(`#index_${index}`);
+
+    const scrollPosition = list.scrollTop;
+
+    const isElementUpwards = !(scrollPosition <= (index - 1) * item.offsetHeight);
+    const isElementDownwards = !(scrollPosition >= index * item.offsetHeight - list.offsetHeight);
+
+    if (isElementUpwards) {
+      list.scrollTo(0, (index - 1) * item.offsetHeight);
+    } else if (isElementDownwards) {
+      list.scrollTo(0, (index * item.offsetHeight - list.offsetHeight));
+    }
+  };
+
   const checkMouseIndex = (index) => {
     setActiveIndexRef(parseInt(index));
+    scrollMousedCard(index);
   };
 
   const checkMouseOver = (index) => {
     if (!isCascadingEffectPresent) {
       setActiveIndexRef(parseInt(index));
+      scrollMousedCard(index);
     }
   };
 
